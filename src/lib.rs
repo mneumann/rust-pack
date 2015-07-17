@@ -1,5 +1,6 @@
 use std::mem;
 use std::convert::From;
+use std::convert::AsRef;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct U32b([u8; 4]);
@@ -8,6 +9,12 @@ impl<'a> From<&'a [u8]> for U32b {
     fn from(a: &[u8]) -> U32b {
         assert!(a.len() == 4);
         U32b([a[0], a[1], a[2], a[3]])
+    }
+}
+
+impl AsRef<[u8]> for U32b {
+    fn as_ref(&self) -> &[u8] {
+        &self.0[..]
     }
 }
 
